@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariage Capucine & Edouard - 4 Juillet 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Didot', 'Bodoni MT', 'Book Antiqua', serif;
+            background-color: #faf9f7;
+            color: #2d5016;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Page d'accueil - Image plein écran cliquable */
+        .landing-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #2d5016;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
+        }
+
+        .landing-page.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .landing-page img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .landing-page:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Contenu principal */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            background-color: #faf9f7;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        /* Hero section avec les deux images */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #faf9f7 0%, #f5f3ef 100%);
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            box-shadow: 0 15px 50px rgba(45, 80, 22, 0.15);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        /* Titre principal */
+        .main-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .main-title h1 {
+            font-size: 4em;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: #2d5016;
+            margin-bottom: 20px;
+            font-family: 'Didot', 'Bodoni MT', serif;
+        }
+
+        .main-title .date {
+            font-size: 1.3em;
+            color: #4a7025;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background-color: #2d5016;
+            margin: 40px auto;
+        }
+
+        /* Section informations */
+        .info-section {
+            background-color: white;
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 800px;
+            border-radius: 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+
+        .info-section h2 {
+            color: #2d5016;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 30px 20px;
+            border: 1px solid #e5e1da;
+            background-color: #faf9f7;
+        }
+
+        .info-card h3 {
+            color: #2d5016;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .info-card p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        /* Section formulaire */
+        .form-section {
+            background-color: #2d5016;
+            color: white;
+            padding: 80px 40px;
+            margin: 80px 0;
+        }
+
+        .form-section h2 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .form-section p {
+            text-align: center;
+            margin-bottom: 50px;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1em;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 0;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: 'Didot', 'Bodoni MT', serif;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: white;
+            background-color: rgba(255,255,255,0.15);
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background-color: #2d5016;
+            color: white;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        button[type="submit"] {
+            background-color: white;
+            color: #2d5016;
+            padding: 18px 50px;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-family: 'Didot', 'Bodoni MT', serif;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #f5f3ef;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+
+        .success-message {
+            display: none;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .images-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .main-title h1 {
+                font-size: 2.5em;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-section,
+            .form-container {
+                padding: 30px 20px;
+            }
+
+            .form-section {
+                padding: 50px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page d'accueil - Image plein écran cliquable -->
+    <div class="landing-page" id="landingPage" onclick="enterSite()">
+        <img src="IMG-20250920-WA0002.jpg" alt="Save the Date - Capucine & Edouard">
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="main-content" id="mainContent">
+        <!-- Hero avec les deux images -->
+        <section class="hero-section">
+            <div class="images-grid">
+                <div class="hero-image">
+                    <img src="IMG-20250920-WA0002.jpg" alt="Save the Date 1">
+                </div>
+                <div class="hero-image">
+                    <img src="IMG-20250920-WA0004.jpg" alt="Save the Date 2">
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="main-title">
+                <h1>CAPUCINE & EDOUARD</h1>
+                <div class="divider"></div>
+                <p class="date">4 Juillet 2026</p>
+            </div>
+        </div>
+
+        <!-- Informations pratiques -->
+        <section class="info-section">
+            <h2>Informations</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Date</h3>
+                    <p>Vendredi<br>4 Juillet 2026</p>
+                </div>
+                <div class="info-card">
+                    <h3>Horaire</h3>
+                    <p>Cérémonie<br>15h00</p>
+                </div>
+                <div class="info-card">
+                    <h3>Lieu</h3>
+                    <p>Château de...<br>Adresse complète<br>Code Postal Ville</p>
+                </div>
+                <div class="info-card">
+                    <h3>Réception</h3>
+                    <p>Cocktail & Dîner<br>à partir de 18h00</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulaire de confirmation -->
+        <section class="form-section">
+            <h2>Votre Réponse</h2>
+            <p>Merci de confirmer votre présence avant le 1er mai 2026</p>
+            
+            <div class="form-container">
+                <form action="https://formsubmit.co/pierre.foubert@outlook.fr" method="POST">
+                    <!-- Configuration FormSubmit -->
+                    <input type="hidden" name="_subject" value="Nouvelle réponse mariage - Capucine & Edouard">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nom">Nom *</label>
+                            <input type="text" id="nom" name="Nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom">Prénom *</label>
+                            <input type="text" id="prenom" name="Prénom" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone">Téléphone *</label>
+                            <input type="tel" id="telephone" name="Téléphone" placeholder="06 XX XX XX XX" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="codePostal">Code Postal *</label>
+                            <input type="text" id="codePostal" name="Code_Postal" pattern="[0-9]{5}" placeholder="75001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="presence">Présence *</label>
+                            <select id="presence" name="Présence" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="Oui, je serai présent(e)">Oui, je serai présent(e)</option>
+                                <option value="Non, je ne pourrai pas venir">Non, je ne pourrai pas venir</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit">Confirmer</button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    ✓ Merci ! Votre réponse a bien été enregistrée.
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Nous avons hâte de célébrer ce moment avec vous</p>
+        </footer>
+    </div>
+
+    <script>
+        function enterSite() {
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('visible');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Au chargement, cache le contenu principal et bloque le scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.overflow = 'hidden';
+        });
+    </script>
+</body>
+</html>
