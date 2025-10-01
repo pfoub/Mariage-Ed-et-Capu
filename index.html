@@ -301,7 +301,174 @@
             color: #666;
             font-size: 1.1em;
         }
+        /* Cookie Banner Styles */
+.cookie-banner {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 25px 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    z-index: 2000;
+    max-width: 500px;
+    width: 90%;
+}
 
+.cookie-banner.show {
+    display: block;
+    animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+    from {
+        bottom: -100px;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+.cookie-content h3 {
+    color: #2d5016;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.cookie-content p {
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.cookie-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Didot', 'Bodoni MT', serif;
+    letter-spacing: 1px;
+}
+
+.cookie-btn.accept {
+    background-color: #2d5016;
+    color: white;
+}
+
+.cookie-btn.accept:hover {
+    background-color: #4a7025;
+    transform: translateY(-2px);
+}
+
+.cookie-btn.refuse {
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+.cookie-btn.refuse:hover {
+    background-color: #d0d0d0;
+}
+
+/* Message après refus */
+.cookie-refuse-message {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    z-index: 2000;
+    max-width: 500px;
+    width: 90%;
+}
+
+.cookie-refuse-message.show {
+    display: block;
+    animation: slideUp 0.5s ease forwards;
+}
+
+.refuse-content h2 {
+    color: #2d5016;
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.refuse-content p {
+    color: #555;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+/* Gros cookie animé */
+.big-cookie {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3000;
+    text-align: center;
+}
+
+.big-cookie.show {
+    display: block;
+    animation: cookieAppear 0.5s ease forwards;
+}
+
+@keyframes cookieAppear {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(180deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+.cookie-emoji {
+    font-size: 15em;
+    animation: bounce 0.6s ease infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+.big-cookie p {
+    font-size: 2em;
+    color: #2d5016;
+    margin-top: 20px;
+    font-weight: bold;
+}
         @media (max-width: 768px) {
             .images-grid {
                 grid-template-columns: 1fr;
@@ -329,6 +496,16 @@
             .form-section {
                 padding: 50px 20px;
             }
+            .cookie-banner,
+.cookie-refuse-message {
+    bottom: 20px;
+    width: 95%;
+    padding: 20px;
+}
+
+.cookie-emoji {
+    font-size: 10em;
+}
         }
     </style>
 </head>
